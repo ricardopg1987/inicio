@@ -326,18 +326,26 @@ if ( function_exists( 'apache_setenv' ) ) {
 
             // Cargar el importador
             if ( $importer_installed ) {
-                // Cargar las clases necesarias del WordPress Importer
+                // 1. Cargar la clase base WP_Importer de WordPress core
                 if ( ! class_exists( 'WP_Importer' ) ) {
                     $class_wp_importer = ABSPATH . 'wp-admin/includes/class-wp-importer.php';
                     if ( file_exists( $class_wp_importer ) ) {
                         require_once $class_wp_importer;
+                        log_message( '✅ WP_Importer base cargada', 'success' );
                     }
                 }
 
-                // Cargar el archivo principal del plugin
+                // 2. Cargar el archivo principal del plugin
                 require_once WP_PLUGIN_DIR . '/wordpress-importer/wordpress-importer.php';
 
-                // Cargar la clase WP_Import explícitamente
+                // 3. Cargar los parsers XML (requeridos para WP_Import)
+                $parsers_file = WP_PLUGIN_DIR . '/wordpress-importer/parsers.php';
+                if ( file_exists( $parsers_file ) ) {
+                    require_once $parsers_file;
+                    log_message( '✅ Parsers XML cargados', 'success' );
+                }
+
+                // 4. Cargar la clase WP_Import explícitamente
                 if ( ! class_exists( 'WP_Import' ) ) {
                     $class_wp_import = WP_PLUGIN_DIR . '/wordpress-importer/class-wp-import.php';
                     if ( file_exists( $class_wp_import ) ) {
@@ -543,11 +551,13 @@ if ( function_exists( 'apache_setenv' ) ) {
                     $plugin_dir = WP_PLUGIN_DIR . '/wordpress-importer';
                     $main_file = $plugin_dir . '/wordpress-importer.php';
                     $class_file = $plugin_dir . '/class-wp-import.php';
+                    $parsers_file = $plugin_dir . '/parsers.php';
 
                     echo '<div class="log-item error">📁 Ruta del plugin: ' . $plugin_dir . '</div>';
-                    echo '<div class="log-item ' . (file_exists($main_file) ? 'success' : 'error') . '">📄 Archivo principal: ' . (file_exists($main_file) ? '✅ Existe' : '❌ No existe') . '</div>';
-                    echo '<div class="log-item ' . (file_exists($class_file) ? 'success' : 'error') . '">📄 Archivo de clase: ' . (file_exists($class_file) ? '✅ Existe' : '❌ No existe') . '</div>';
-                    echo '<div class="log-item info">🔍 Clases cargadas: ' . (class_exists('WP_Importer') ? 'WP_Importer ✅' : 'WP_Importer ❌') . ' | ' . (class_exists('WP_Import') ? 'WP_Import ✅' : 'WP_Import ❌') . '</div>';
+                    echo '<div class="log-item ' . (file_exists($main_file) ? 'success' : 'error') . '">📄 wordpress-importer.php: ' . (file_exists($main_file) ? '✅ Existe' : '❌ No existe') . '</div>';
+                    echo '<div class="log-item ' . (file_exists($class_file) ? 'success' : 'error') . '">📄 class-wp-import.php: ' . (file_exists($class_file) ? '✅ Existe' : '❌ No existe') . '</div>';
+                    echo '<div class="log-item ' . (file_exists($parsers_file) ? 'success' : 'error') . '">📄 parsers.php: ' . (file_exists($parsers_file) ? '✅ Existe' : '❌ No existe') . '</div>';
+                    echo '<div class="log-item info">🔍 Clases: ' . (class_exists('WP_Importer') ? 'WP_Importer ✅' : 'WP_Importer ❌') . ' | ' . (class_exists('WP_Import') ? 'WP_Import ✅' : 'WP_Import ❌') . ' | ' . (class_exists('WXR_Parser') ? 'WXR_Parser ✅' : 'WXR_Parser ❌') . '</div>';
 
                     echo '</div>';
                     echo '<div class="error"><strong>No se pudo cargar el importador de WordPress.</strong><br><br>
