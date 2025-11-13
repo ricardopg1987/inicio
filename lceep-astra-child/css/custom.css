@@ -1,0 +1,386 @@
+/**
+ * LCEEP Astra Child Theme - Custom CSS
+ * Additional styles not included in style.css
+ *
+ * @package LCEEP_Astra_Child
+ * @since 1.0.0
+ */
+
+/* ==========================================
+   BACK TO TOP BUTTON
+   ========================================== */
+
+.lceep-back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--lceep-primary);
+    color: var(--lceep-white);
+    border: none;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: var(--lceep-transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lceep-back-to-top:hover {
+    background-color: var(--lceep-accent);
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================
+   LOADING STATE
+   ========================================== */
+
+.lceep-team-member.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.lceep-team-member.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--lceep-light-gray);
+    border-top-color: var(--lceep-primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ==========================================
+   SWIPER PAGINATION CUSTOMIZATION
+   ========================================== */
+
+.swiper-pagination {
+    bottom: 10px !important;
+}
+
+.swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background-color: var(--lceep-white);
+    opacity: 0.5;
+    transition: var(--lceep-transition);
+}
+
+.swiper-pagination-bullet-active {
+    opacity: 1;
+    background-color: var(--lceep-accent);
+    transform: scale(1.2);
+}
+
+/* ==========================================
+   TEAM ARCHIVE GRID
+   ========================================== */
+
+.lceep-team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--lceep-spacing-md);
+    padding: var(--lceep-spacing-md) 0;
+}
+
+.lceep-team-grid .lceep-team-member {
+    position: relative;
+}
+
+/* ==========================================
+   SINGLE TEAM MEMBER PAGE
+   ========================================== */
+
+.single-team-member .entry-content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.lceep-team-single-header {
+    display: flex;
+    gap: var(--lceep-spacing-lg);
+    margin-bottom: var(--lceep-spacing-lg);
+    padding: var(--lceep-spacing-lg);
+    background-color: var(--lceep-light-gray);
+    border-radius: 10px;
+}
+
+.lceep-team-single-photo {
+    flex: 0 0 300px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.lceep-team-single-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.lceep-team-single-info {
+    flex: 1;
+}
+
+.lceep-team-single-name {
+    font-size: 2.5rem;
+    margin-bottom: var(--lceep-spacing-xs);
+    color: var(--lceep-primary);
+}
+
+.lceep-team-single-position {
+    font-size: 1.3rem;
+    color: var(--lceep-gray);
+    margin-bottom: var(--lceep-spacing-md);
+}
+
+.lceep-team-contact {
+    margin-bottom: var(--lceep-spacing-md);
+}
+
+.lceep-team-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: var(--lceep-spacing-xs);
+    color: var(--lceep-dark);
+}
+
+.lceep-team-contact-item i,
+.lceep-team-contact-item svg {
+    color: var(--lceep-primary);
+    font-size: 1.2rem;
+}
+
+.lceep-team-social-links {
+    display: flex;
+    gap: var(--lceep-spacing-sm);
+    margin-top: var(--lceep-spacing-md);
+}
+
+.lceep-social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background-color: var(--lceep-primary);
+    color: var(--lceep-white);
+    border-radius: 50%;
+    transition: var(--lceep-transition);
+    text-decoration: none;
+}
+
+.lceep-social-link:hover {
+    background-color: var(--lceep-accent);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.lceep-social-link i,
+.lceep-social-link svg {
+    font-size: 1.3rem;
+}
+
+/* ==========================================
+   BREADCRUMBS
+   ========================================== */
+
+.lceep-breadcrumbs {
+    padding: var(--lceep-spacing-sm) 0;
+    background-color: var(--lceep-light-gray);
+    margin-bottom: var(--lceep-spacing-md);
+}
+
+.lceep-breadcrumbs a {
+    color: var(--lceep-secondary);
+    text-decoration: none;
+}
+
+.lceep-breadcrumbs a:hover {
+    color: var(--lceep-accent);
+    text-decoration: underline;
+}
+
+.lceep-breadcrumbs span {
+    color: var(--lceep-gray);
+    margin: 0 0.5rem;
+}
+
+/* ==========================================
+   FRONT PAGE SECTIONS
+   ========================================== */
+
+.lceep-front-section {
+    padding: var(--lceep-spacing-xl) 0;
+}
+
+.lceep-front-section:nth-child(even) {
+    background-color: var(--lceep-light-gray);
+}
+
+.lceep-news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--lceep-spacing-md);
+}
+
+.lceep-programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--lceep-spacing-md);
+    margin-top: var(--lceep-spacing-lg);
+}
+
+.lceep-program-card {
+    background-color: var(--lceep-white);
+    border-radius: 10px;
+    padding: var(--lceep-spacing-md);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: var(--lceep-transition);
+    text-align: center;
+}
+
+.lceep-program-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.lceep-program-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto var(--lceep-spacing-sm);
+    background-color: var(--lceep-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--lceep-white);
+    font-size: 2rem;
+}
+
+.lceep-program-title {
+    font-size: 1.3rem;
+    color: var(--lceep-primary);
+    margin-bottom: var(--lceep-spacing-sm);
+}
+
+.lceep-program-description {
+    color: var(--lceep-gray);
+}
+
+/* ==========================================
+   RESPONSIVE ADJUSTMENTS
+   ========================================== */
+
+@media (max-width: 768px) {
+    .lceep-team-single-header {
+        flex-direction: column;
+    }
+
+    .lceep-team-single-photo {
+        flex: 0 0 auto;
+        max-width: 100%;
+    }
+
+    .lceep-team-single-name {
+        font-size: 2rem;
+    }
+
+    .lceep-team-single-position {
+        font-size: 1.1rem;
+    }
+
+    .lceep-back-to-top {
+        width: 45px;
+        height: 45px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 1.3rem;
+    }
+
+    .lceep-news-grid,
+    .lceep-programs-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================
+   PRINT STYLES
+   ========================================== */
+
+@media print {
+    .lceep-back-to-top,
+    .lceep-carousel-controls,
+    .lceep-slider-nav,
+    .swiper-pagination {
+        display: none !important;
+    }
+
+    .lceep-team-member,
+    .lceep-card {
+        break-inside: avoid;
+    }
+}
+
+/* ==========================================
+   ACCESSIBILITY
+   ========================================== */
+
+/* Focus styles */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 2px solid var(--lceep-accent);
+    outline-offset: 2px;
+}
+
+/* Skip to content link */
+.skip-to-content {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--lceep-primary);
+    color: var(--lceep-white);
+    padding: 8px;
+    text-decoration: none;
+    z-index: 100;
+}
+
+.skip-to-content:focus {
+    top: 0;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .lceep-card,
+    .lceep-team-member {
+        border: 2px solid var(--lceep-dark);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
