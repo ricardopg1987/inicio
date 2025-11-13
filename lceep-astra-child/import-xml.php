@@ -33,7 +33,10 @@ ini_set( 'memory_limit', '512M' );
 if ( ob_get_level() ) {
     ob_end_clean();
 }
-@apache_setenv('no-gzip', 1);
+// Solo usar apache_setenv si está disponible (Apache module)
+if ( function_exists( 'apache_setenv' ) ) {
+    @apache_setenv('no-gzip', 1);
+}
 @ini_set('zlib.output_compression', 0);
 @ini_set('implicit_flush', 1);
 
