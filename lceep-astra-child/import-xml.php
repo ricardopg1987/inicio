@@ -326,7 +326,24 @@ if ( function_exists( 'apache_setenv' ) ) {
 
             // Cargar el importador
             if ( $importer_installed ) {
+                // Cargar las clases necesarias del WordPress Importer
+                if ( ! class_exists( 'WP_Importer' ) ) {
+                    $class_wp_importer = ABSPATH . 'wp-admin/includes/class-wp-importer.php';
+                    if ( file_exists( $class_wp_importer ) ) {
+                        require_once $class_wp_importer;
+                    }
+                }
+
+                // Cargar el archivo principal del plugin
                 require_once WP_PLUGIN_DIR . '/wordpress-importer/wordpress-importer.php';
+
+                // Cargar la clase WP_Import explícitamente
+                if ( ! class_exists( 'WP_Import' ) ) {
+                    $class_wp_import = WP_PLUGIN_DIR . '/wordpress-importer/class-wp-import.php';
+                    if ( file_exists( $class_wp_import ) ) {
+                        require_once $class_wp_import;
+                    }
+                }
 
                 if ( class_exists( 'WP_Import' ) ) {
                     log_message( '✅ WordPress Importer cargado correctamente', 'success' );
@@ -521,8 +538,23 @@ if ( function_exists( 'apache_setenv' ) ) {
 
                 } else {
                     log_message( '❌ No se pudo cargar la clase WP_Import', 'error' );
+
+                    // Información de debugging
+                    $plugin_dir = WP_PLUGIN_DIR . '/wordpress-importer';
+                    $main_file = $plugin_dir . '/wordpress-importer.php';
+                    $class_file = $plugin_dir . '/class-wp-import.php';
+
+                    echo '<div class="log-item error">📁 Ruta del plugin: ' . $plugin_dir . '</div>';
+                    echo '<div class="log-item ' . (file_exists($main_file) ? 'success' : 'error') . '">📄 Archivo principal: ' . (file_exists($main_file) ? '✅ Existe' : '❌ No existe') . '</div>';
+                    echo '<div class="log-item ' . (file_exists($class_file) ? 'success' : 'error') . '">📄 Archivo de clase: ' . (file_exists($class_file) ? '✅ Existe' : '❌ No existe') . '</div>';
+                    echo '<div class="log-item info">🔍 Clases cargadas: ' . (class_exists('WP_Importer') ? 'WP_Importer ✅' : 'WP_Importer ❌') . ' | ' . (class_exists('WP_Import') ? 'WP_Import ✅' : 'WP_Import ❌') . '</div>';
+
                     echo '</div>';
-                    echo '<div class="error">No se pudo cargar el importador de WordPress. Por favor, intenta instalar el plugin "WordPress Importer" manualmente.</div>';
+                    echo '<div class="error"><strong>No se pudo cargar el importador de WordPress.</strong><br><br>
+                    <strong>Posibles soluciones:</strong><br>
+                    1. Reinstala el plugin "WordPress Importer" desde <strong>Plugins → Agregar nuevo</strong><br>
+                    2. Verifica que el plugin esté actualizado a la última versión<br>
+                    3. Revisa la información de debugging arriba para identificar archivos faltantes</div>';
                 }
             } else {
                 log_message( '❌ WordPress Importer no está disponible', 'error' );
